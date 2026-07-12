@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>TriAxiom – Axis State</title>
+
+<style>
+  body { background:#000; color:#0f0; font-family:Consolas, monospace; padding:20px; }
+  h1 { color:#6cf; }
+  .box {
+    background:#111;
+    border:1px solid #333;
+    padding:12px;
+    margin:12px 0;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>TriAxiom – Axis State</h1>
+
+<div id="out" class="box">Lade Achsen‑State…</div>
+
+<script type="module">
+// ------------------------------------------------------
+// TriAxiom Axis State Kernel
+// ------------------------------------------------------
+const AXIS_STATE = {
+  axis: {
+    x: 1,
+    y: 1,
+    z: 1,
+    th: 3
+  },
+  tri: ["A", "B", "C"],
+  mode: "ACTIVE",
+  orbit: "AXIS → TRI → CORE",
+  stamp: Date.now()
+};
+
+// ------------------------------------------------------
+// Renderer
+// ------------------------------------------------------
+function renderState() {
+  const out = document.getElementById("out");
+
+  out.innerHTML = `
+    <h2>AXIS STATE</h2>
+    <p><b>Achse:</b> ${JSON.stringify(AXIS_STATE.axis)}</p>
+    <p><b>Tri‑Axiom:</b> ${AXIS_STATE.tri.join(" / ")}</p>
+    <p><b>Modus:</b> ${AXIS_STATE.mode}</p>
+    <p><b>Orbit:</b> ${AXIS_STATE.orbit}</p>
+    <p><b>STAMP:</b> ${AXIS_STATE.stamp}</p>
+  `;
+}
+
+renderState();
+</script>
+
+</body>
+</html>
 
