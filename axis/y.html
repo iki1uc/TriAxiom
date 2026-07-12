@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Achse Y · 6D‑TriAxiom</title>
+
+<style>
+    body {
+        background: #000;
+        color: #0f0;
+        font-family: monospace;
+        padding: 40px;
+    }
+
+    h1 {
+        color: #0f0;
+        letter-spacing: 4px;
+        margin-bottom: 20px;
+    }
+
+    .block {
+        background: #111;
+        border: 1px solid #333;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+    }
+
+    .title {
+        color: #0f0;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .matrix {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .cell {
+        background: #0a0a0a;
+        border: 1px solid #222;
+        padding: 15px;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    .ok {
+        color: #0f0;
+    }
+
+    .fail {
+        color: #f00;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Achse Y · 6D‑TriAxiom</h1>
+
+<div class="block">
+    <div class="title">Achsen‑DNA</div>
+    <p>Slot: 2</p>
+    <p>Gruppe: primary</p>
+    <p>Depth: 0.40</p>
+    <p>Signatur: TRI::AXIOM::CORE</p>
+</div>
+
+<div class="block">
+    <div class="title">6D‑Router‑Matrix</div>
+    <div id="axi-output"></div>
+</div>
+
+<div class="block">
+    <div class="title">TriAxiom‑Real</div>
+
+    <div class="matrix">
+        <div class="cell">Axiom I<br><span class="ok">Struktur erzeugt Ordnung</span></div>
+        <div class="cell">Axiom II<br><span class="ok">Ordnung erzeugt Bewegung</span></div>
+        <div class="cell">Axiom III<br><span class="ok">Bewegung erzeugt System</span></div>
+    </div>
+</div>
+
+<script type="module">
+import { routerMatrix } from "../router-matrix.js";
+
+async function run() {
+    const params = new URLSearchParams(window.location.search);
+    const axis = params.get("axis") || "Y";
+
+    const result = await routerMatrix(axis);
+
+    document.getElementById("axi-output").innerHTML = `
+        <p><strong>Achse:</strong> ${result.axis}</p>
+        <p><strong>Slot:</strong> ${result.slot}</p>
+        <p><strong>Depth:</strong> ${result.depth}</p>
+        <p><strong>Gruppe:</strong> ${result.group}</p>
+        <p><strong>Route:</strong> ${result.route}</p>
+        <p><strong>Modus:</strong> ${result.mode}</p>
+        <p><strong>Status:</strong> ${result.valid ? "<span class='ok'>✔ erfüllt</span>" : "<span class='fail'>❌ Fehler</span>"}</p>
+    `;
+}
+
+run();
+</script>
+
+</body>
+</html>
